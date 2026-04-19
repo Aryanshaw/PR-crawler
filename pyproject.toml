@@ -1,0 +1,22 @@
+[project]
+name = "pr-crawler"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.14.3",
+    "langchain-community>=0.4.1",
+    "langchain-groq>=1.1.2",
+    "langchain-huggingface>=1.2.2",
+    "mcp>=1.27.0",
+    "neo4j>=6.1.0",
+    "numpy>=2.4.4",
+    "playwright>=1.58.0",
+    "pydantic>=2.13.2",
+    "python-dotenv>=1.2.2",
+    "requests>=2.33.1",
+    "sentence-transformers>=5.4.1",
+    "unidiff>=0.7.5",
+    "uvicorn>=0.44.0",
+]

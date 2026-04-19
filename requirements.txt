@@ -1,0 +1,12 @@
+playwright
+neo4j
+python-dotenv
+beautifulsoup4
+pydantic
+requests
+unidiff
+langchain
+langchain-groq
+langchain-huggingface
+sentence-transformers
+numpy
