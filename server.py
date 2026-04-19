@@ -2,9 +2,14 @@ import sys
 import os
 import asyncio
 import json
+import logging
 from typing import Optional, List
 
-# Dynamic Path Resolution: Get the absolute path of the directory containing server.py
+# Redirect logging to stderr to prevent MCP protocol interference
+logging.basicConfig(level=logging.INFO, stream=sys.stderr)
+logger = logging.getLogger(__name__)
+
+# Dynamic Path Resolution
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
     sys.path.append(PROJECT_ROOT)
@@ -24,7 +29,6 @@ from database.neo4j_manager import Neo4jManager
 mcp = FastMCP("Testsigma QA Agent")
 
 # Initialize Agents
-# We delay initialization of agents that might need the event loop or have heavy imports
 crawl_agent = None
 prd_agent = None
 mapping_agent = None
@@ -34,12 +38,16 @@ db_manager = None
 def get_agents():
     global crawl_agent, prd_agent, mapping_agent, impact_agent, db_manager
     if crawl_agent is None:
-        crawl_agent = BrowserCrawlAgent()
-        prd_agent = PRDIngestionAgent()
-        mapping_agent = MappingAgent()
-        impact_agent = CodeChangeImpactAgent()
-        db_manager = Neo4jManager()
-        db_manager.create_constraints()
+        try:
+            crawl_agent = BrowserCrawlAgent()
+            prd_agent = PRDIngestionAgent()
+            mapping_agent = MappingAgent()
+            impact_agent = CodeChangeImpactAgent()
+            db_manager = Neo4jManager()
+            db_manager.create_constraints()
+        except Exception as e:
+            logger.error(f"Error initializing agents: {e}")
+            raise
     return crawl_agent, prd_agent, mapping_agent, impact_agent, db_manager
 
 @mcp.tool()

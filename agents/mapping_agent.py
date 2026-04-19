@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from utils.llm_helper import LLMHelper
 from database.neo4j_manager import Neo4jManager
@@ -18,7 +19,7 @@ class MappingAgent:
         ui_elements = self._get_all_ui_elements()
         
         if not requirements or not ui_elements:
-            print("Missing requirements or UI elements to map.")
+            print("Missing requirements or UI elements to map.", file=sys.stderr)
             return
 
         # 1. Get embeddings
@@ -43,7 +44,7 @@ class MappingAgent:
                 elem = next(e for e in ui_elements if e['id'] == elem_id)
                 verification = self._verify_mapping(req_text, elem)
                 if verification and verification.is_match:
-                    print(f"Mapped {elem_id} to {req_id}")
+                    print(f"Mapped {elem_id} to {req_id}", file=sys.stderr)
                     self.db_manager.add_mapping(elem_id, req_id, verification.reasoning)
 
     def _get_all_requirements(self):

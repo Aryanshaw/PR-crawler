@@ -38,18 +38,15 @@ NEO4J_PASSWORD=your_password
 GITHUB_TOKEN=ghp_your_github_token
 ```
 
-### 3. Connect as MCP Server (Docker - Recommended)
-Containerization ensures the agent works on any machine without needing local setup.
+### 3. Connect as MCP Server
+To ensure portability, use the `uv run` command. This ensures all dependencies are managed automatically.
 
 ```bash
-# Build the image
-docker build -t testsigma-qa .
+# For Codex
+codex mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 
-# Add to Codex
-codex mcp add testsigma-qa -- docker run -i --rm --env-file .env testsigma-qa
-
-# Add to Claude Code
-claude mcp add testsigma-qa -- docker run -i --rm --env-file .env testsigma-qa
+# For Claude Code
+claude mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 ```
 
 ## 🛡️ Usage Example

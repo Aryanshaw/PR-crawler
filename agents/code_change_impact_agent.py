@@ -1,3 +1,4 @@
+import sys
 import requests
 import json
 from unidiff import PatchSet
@@ -36,6 +37,7 @@ class CodeChangeImpactAgent:
     def parse_diff(self, diff_text):
         patch = PatchSet(diff_text)
         changed_components = self._extract_changed_components(patch)
+        print(f"Detected components in diff: {changed_components}", file=sys.stderr)
         return changed_components
 
     def _extract_changed_components(self, patch):

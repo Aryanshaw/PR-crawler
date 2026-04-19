@@ -8,56 +8,24 @@ This guide explains how to connect this MCP server to Claude Desktop and test it
 - **Groq API Key** (For Llama 3)
 - **GitHub Personal Access Token** (Classic, with `repo` scope)
 
-## 2. Connect to Codex or Claude code (Option A: Docker - Recommended)
-Containerization ensures the agent works on any machine without needing Python or Playwright installed locally.
+## 2. Connect to Codex or Claude code (Portable CLI)
+To ensure the project works on any machine without hardcoded paths, use the `$(pwd)` command during installation. This dynamically resolves to your current project folder.
 
-**Step 1: Build the image**
+**Run these commands from the root directory of the project:**
+
 ```bash
-docker build -t testsigma-qa .
+# For Codex
+codex mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 ```
 
-**Step 2: Add to Codex**
 ```bash
-codex mcp add testsigma-qa -- docker run -i --rm --env-file .env testsigma-qa
-```
-
-**Step 3: Add to Claude Code**
-```bash
-claude mcp add testsigma-qa -- docker run -i --rm --env-file .env testsigma-qa
+# For Claude Code
+claude mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 ```
 
 ---
 
-## 3. Connect via uv (Option B: Local Python)
-If you prefer not to use Docker, ensure you are in the project root:
-
-## 3. Connect to Claude Desktop (Option B: Manual Config)
-1. Open the Claude Desktop configuration file:
-   - **MacOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
-
-2. Add the following configuration (replace `/path/to/your/project` with the actual absolute path):
-
-```json
-{
-  "mcpServers": {
-    "testsigma-qa": {
-      "command": "uv",
-      "args": [
-        "--directory",
-        "/Users/aryanshaw/Documents/pracice/PRcrawler/Pr-Crawler",
-        "run",
-        "python",
-        "server.py"
-      ]
-    }
-  }
-}
-```
-
-3. **Restart Claude Desktop.** You should now see a 🔌 icon in the message box.
-
-## 4. Successful Installation Logs (Project Record)
+## 3. Successful Installation Logs (Project Record)
 The following steps were taken to successfully verify the MCP installation in Codex:
 - **Initialization**: `uv init` and dependency installation with `uv add`.
 - **CLI Installation**: `codex mcp add testsigma-qa -- uv run python server.py`.
@@ -66,16 +34,16 @@ The following steps were taken to successfully verify the MCP installation in Co
 
 ---
 
-## 5. Real-World Testing Examples
+## 4. Real-World Testing Examples
 
 ### Example 1: Analyze a PR for RealWorld App
-**PR Link**: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/314` (A real PR example)
+**PR Link**: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/199` (A real PR example)
 **Target App**: `https://demo.realworld.io/`
 
 **Conversation Flow:**
 1. **User**: "Verify if my MCP tools are available. Run the `ping` tool."
 2. **Claude/Codex**: *Calls `ping` tool.*
-3. **User**: "I want to review this PR: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/314`. First, crawl the live app at `https://demo.realworld.io/` to understand the UI."
+3. **User**: "I want to review this PR: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/199`. First, crawl the live app at `https://demo.realworld.io/` to understand the UI."
 4. **Claude/Codex**: *Calls `crawl_app` tool.*
 3. **User**: "Now ingest this PRD for the RealWorld app: 'The app allows users to register, login, create articles, and follow authors. Users must be able to comment on articles.'"
 4. **Claude**: *Calls `ingest_prd` and then `map_requirements`.*

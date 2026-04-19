@@ -1,3 +1,4 @@
+import sys
 import asyncio
 import hashlib
 from playwright.async_api import async_playwright
@@ -29,7 +30,7 @@ class BrowserCrawlAgent:
                 if url in self.visited_urls or depth > max_depth:
                     continue
                 
-                print(f"Crawling: {url} at depth {depth}")
+                print(f"Crawling: {url} at depth {depth}", file=sys.stderr)
                 self.visited_urls.add(url)
                 
                 try:
@@ -53,7 +54,7 @@ class BrowserCrawlAgent:
                                 queue.append((link, depth + 1))
                                 
                 except Exception as e:
-                    print(f"Error crawling {url}: {e}")
+                    print(f"Error crawling {url}: {e}", file=sys.stderr)
             
             await browser.close()
 

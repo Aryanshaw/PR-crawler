@@ -1,3 +1,4 @@
+import sys
 from neo4j import GraphDatabase
 from config import NEO4J_URI, NEO4J_USERNAME, NEO4J_PASSWORD
 
@@ -31,7 +32,8 @@ class Neo4jManager:
             try:
                 self.query(q)
             except Exception as e:
-                print(f"Error creating constraint: {e}")
+                # Redirect error to stderr so it doesn't break MCP protocol
+                print(f"Error creating constraint: {e}", file=sys.stderr)
 
     # Screen Layer
     def add_screen(self, screen_data):
