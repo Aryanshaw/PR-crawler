@@ -39,6 +39,8 @@ GITHUB_TOKEN=ghp_your_github_token
 ```
 
 ### 3. Connect as MCP Server
+> ⚠️ **IMPORTANT**: You must run Codex/Claude from the **same directory** where the project is located. If you run it from a different folder (e.g., `~/Downloads`), the MCP server will fail to start due to path resolution issues.
+
 To ensure portability, use the `uv run` command. This ensures all dependencies are managed automatically.
 
 ```bash
