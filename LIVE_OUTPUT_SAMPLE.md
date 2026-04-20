@@ -1,7 +1,7 @@
 ### 🛡️ Testsigma QA Blast Radius Report (Sample)
 
 #### **Project Context**
-- **PR URL**: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/314`
+- **PR URL**: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/199`
 - **Target App**: `https://demo.realworld.io/`
 
 ---

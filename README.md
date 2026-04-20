@@ -61,7 +61,7 @@ Ask your AI assistant (Codex/Claude) to perform a full review:
 1.  **Verify**: "Check if the `testsigma-qa` MCP tools are available by running the `ping` tool."
 2.  **Crawl**: "Crawl the live app at `https://demo.realworld.io/` to understand the UI."
 3.  **Ingest PRD**: "Ingest this PRD for the RealWorld app: 'Users must be able to login, create articles, and follow authors.'"
-4.  **Analyze PR**: "Analyze this PR: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/314`. Generate a blast radius report and test cases."
+4.  **Analyze PR**: "Analyze this PR: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/199`. Generate a blast radius report and test cases."
 5.  **Export**: "Export the final knowledge graph for submission using the `export_graph` tool."
 
 ## 📄 Detailed Guide
