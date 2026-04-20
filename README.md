@@ -49,6 +49,12 @@ codex mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 claude mcp add testsigma-qa -- uv run python "$(pwd)/server.py"
 ```
 
+## 📄 Submission Requirements
+- **Working Repo**: All 4 agents are connected via MCP tools in `server.py`.
+- **Neo4j Graph Dump**: Use the `export_graph` tool to generate `graph_dump.json`.
+- **Live Output**: A sample report is available in [LIVE_OUTPUT_SAMPLE.md](./LIVE_OUTPUT_SAMPLE.md).
+- **Design Doc**: A detailed design document is available in [DESIGN.md](./DESIGN.md).
+
 ## 🛡️ Usage Example
 Ask your AI assistant (Codex/Claude) to perform a full review:
 
@@ -56,6 +62,7 @@ Ask your AI assistant (Codex/Claude) to perform a full review:
 2.  **Crawl**: "Crawl the live app at `https://demo.realworld.io/` to understand the UI."
 3.  **Ingest PRD**: "Ingest this PRD for the RealWorld app: 'Users must be able to login, create articles, and follow authors.'"
 4.  **Analyze PR**: "Analyze this PR: `https://github.com/gothinkster/react-redux-realworld-example-app/pull/314`. Generate a blast radius report and test cases."
+5.  **Export**: "Export the final knowledge graph for submission using the `export_graph` tool."
 
 ## 📄 Detailed Guide
 For more information on testing and troubleshooting, see the [USAGE.md](./USAGE.md) file.

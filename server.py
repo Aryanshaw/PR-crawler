@@ -153,5 +153,19 @@ async def query_graph(cypher_query: str) -> str:
     except Exception as e:
         return json.dumps({"status": "error", "message": str(e)})
 
+@mcp.tool()
+async def export_graph() -> str:
+    """
+    Exports the entire knowledge graph to a JSON file (graph_dump.json) for submission.
+    """
+    _, _, _, _, db = get_agents()
+    try:
+        data = db.export_graph_json()
+        with open("graph_dump.json", "w") as f:
+            json.dump(data, f, indent=2)
+        return "Graph exported successfully to graph_dump.json"
+    except Exception as e:
+        return f"Error exporting graph: {str(e)}"
+
 if __name__ == "__main__":
     mcp.run()

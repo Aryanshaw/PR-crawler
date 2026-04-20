@@ -122,10 +122,36 @@ class Neo4jManager:
         """
         self.query(query, {"element_id": element_id, "requirement_id": requirement_id, "reasoning": reasoning})
 
-    def add_screen_feature_mapping(self, screen_id, feature_id):
-        query = """
-        MATCH (s:Screen {id: $screen_id})
-        MATCH (f:Feature {id: $feature_id})
-        MERGE (s)-[:SATISFIES]->(f)
+    def export_graph_json(self):
         """
-        self.query(query, {"screen_id": screen_id, "feature_id": feature_id})
+        Exports the entire graph as a JSON structure for portability.
+        """
+        query = """
+        MATCH (n)
+        OPTIONAL MATCH (n)-[r]->(m)
+        RETURN n, r, m
+        """
+        results = self.query(query)
+        nodes = {}
+        edges = []
+        
+        for record in results:
+            n = record['n']
+            if n.id not in nodes:
+                nodes[n.id] = {
+                    "id": n.id,
+                    "labels": list(n.labels),
+                    "properties": dict(n)
+                }
+            
+            if record['r'] and record['m']:
+                r = record['r']
+                m = record['m']
+                edges.append({
+                    "start": n.id,
+                    "end": m.id,
+                    "type": r.type,
+                    "properties": dict(r)
+                })
+        
+        return {"nodes": list(nodes.values()), "edges": edges}
