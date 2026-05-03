@@ -1,4 +1,4 @@
-# 🛡️ Living Application Knowledge Graph (Testsigma QA Agent)
+# 🛡️ Living Application Knowledge Graph
 
 An intelligent 4-agent system that connects **Product Requirements**, **UI Elements**, and **Code Changes** into a queryable Neo4j graph to reason about the blast radius of any code change.
 
